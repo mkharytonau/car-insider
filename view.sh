@@ -1,0 +1,2 @@
+echo  '["downloadDate", "originalDaysOnSale", "priceUsd", "description", "publishedAt", "refreshedAt", "top", "highlight", "renewedAt", "sellerName", "locationName", "publicUrl", "year"]' | jq -r '@tsv' > view.csv
+jq -r '[.downloadDate, .originalDaysOnSale, .price.usd.amount, .description, .publishedAt, .refreshedAt, .top, .highlight, .renewedAt, .sellerName, .locationName, .publicUrl, .year] | @tsv' history >> view.csv
