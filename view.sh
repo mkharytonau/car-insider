@@ -1,2 +1,2 @@
-echo  '["id", "downloadDate", "originalDaysOnSale", "priceUsd", "description", "publishedAt", "refreshedAt", "top", "highlight", "renewedAt", "sellerName", "locationName", "publicUrl", "year"]' | jq -r '@tsv' > view.csv
-jq -r '[.id, .downloadDate, .originalDaysOnSale, .price.usd.amount, .description, .publishedAt, .refreshedAt, .top, .highlight, .renewedAt, .sellerName, .locationName, .publicUrl, .year] | @tsv' history >> view.csv
+echo  '["id", "downloadDate", "model", "originalDaysOnSale", "priceUsd", "description", "publishedAt", "refreshedAt", "top", "highlight", "renewedAt", "sellerName", "locationName", "publicUrl", "year"]' | jq -r '@tsv' > view.csv
+jq -r '[.id, .downloadDate, .model, .originalDaysOnSale, .price.usd.amount, .description, .publishedAt, .refreshedAt, .top, .highlight, .renewedAt, .sellerName, .locationName, .publicUrl, .year] | @tsv' history >> view.csv
