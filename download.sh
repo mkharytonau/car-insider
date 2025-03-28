@@ -1,179 +1,103 @@
 echo '\n' >> history
 
-# BMW F34
-curl -d '{"page":1,"properties":[{"name":"brands","property":6,"value":[[{"name":"brand","value":8},{"name":"model","value":5863},{"name":"generation","value":12822}]]},{"name":"price_currency","value":2}],"sorting":1}' \
--H "Host: api.av.by" \
--H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:136.0) Gecko/20100101 Firefox/136.0" \
--H "Accept: */*" \
--H "Accept-Language: en-US,en;q=0.5" \
--H "Accept-Encoding: gzip, deflate, br, zstd" \
--H "Referer: https://cars.av.by/" \
--H "x-device-type: web.desktop" \
--H "Content-Type: application/json" \
--H "Origin: https://cars.av.by" \
--H "Connection: keep-alive" \
--H "Sec-Fetch-Dest: empty" \
--H "Sec-Fetch-Mode: cors" \
--H "Sec-Fetch-Site: same-site" \
--H "Priority: u=0" \
--H "TE: trailers" \
--X POST \
-'https://api.av.by/offer-types/cars/filters/main/apply' | \
-gunzip - | \
-jq --arg date $(date +"%Y-%m-%dT%H:%M:%S%z") --arg model "BMW F34" \
--c '.adverts[] | . + {downloadDate: $date, model: $model}' >> history
+downloadDate=$(date +"%Y-%m-%dT%H:%M:%S%z")
 
-curl -d '{"page":2,"properties":[{"name":"brands","property":6,"value":[[{"name":"brand","value":8},{"name":"model","value":5863},{"name":"generation","value":12822}]]},{"name":"price_currency","value":2}],"sorting":1}' \
--H "Host: api.av.by" \
--H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:136.0) Gecko/20100101 Firefox/136.0" \
--H "Accept: */*" \
--H "Accept-Language: en-US,en;q=0.5" \
--H "Accept-Encoding: gzip, deflate, br, zstd" \
--H "Referer: https://cars.av.by/" \
--H "x-device-type: web.desktop" \
--H "Content-Type: application/json" \
--H "Origin: https://cars.av.by" \
--H "Connection: keep-alive" \
--H "Sec-Fetch-Dest: empty" \
--H "Sec-Fetch-Mode: cors" \
--H "Sec-Fetch-Site: same-site" \
--H "Priority: u=0" \
--H "TE: trailers" \
--X POST \
-'https://api.av.by/offer-types/cars/filters/main/apply' | \
-gunzip - | \
-jq --arg date $(date +"%Y-%m-%dT%H:%M:%S%z") --arg model "BMW F34" \
--c '.adverts[] | . + {downloadDate: $date, model: $model}' >> history
+make_request() {
+  local page=$1
+  local modelName=$2
+  local jsonRequest=$3
+
+  curl -d "{\"page\":${page},\"properties\":${jsonRequest},\"sorting\":1}" \
+  -H "Host: api.av.by" \
+  -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:136.0) Gecko/20100101 Firefox/136.0" \
+  -H "Accept: */*" \
+  -H "Accept-Language: en-US,en;q=0.5" \
+  -H "Accept-Encoding: gzip, deflate, br, zstd" \
+  -H "Referer: https://cars.av.by/" \
+  -H "x-device-type: web.desktop" \
+  -H "Content-Type: application/json" \
+  -H "Origin: https://cars.av.by" \
+  -H "Connection: keep-alive" \
+  -H "Sec-Fetch-Dest: empty" \
+  -H "Sec-Fetch-Mode: cors" \
+  -H "Sec-Fetch-Site: same-site" \
+  -H "Priority: u=0" \
+  -H "TE: trailers" \
+  -X POST \
+  'https://api.av.by/offer-types/cars/filters/main/apply' | \
+  gunzip - | \
+  jq --arg date "$downloadDate" --arg model "${modelName}" \
+  -c '.adverts[] | . + {downloadDate: $date, model: $model}' >> history
+}
+
+# BMW F34
+bmw_f34_request='[
+  {
+    "name": "brands",
+    "property": 6,
+    "value": [
+      [
+        {
+          "name": "brand",
+          "value": 8
+        },
+        {
+          "name": "model",
+          "value": 5863
+        },
+        {
+          "name": "generation",
+          "value": 12822
+        }
+      ]
+    ]
+  },
+  {
+    "name": "price_currency",
+    "value": 2
+  }
+]'
+make_request 1 "BMW F34" "${bmw_f34_request}"
+make_request 2 "BMW F34" "${bmw_f34_request}"
 
 # AUDI A4 B6
-curl -d '{"page":1,"properties":[{"name":"brands","property":6,"value":[[{"name":"brand","value":6},{"name":"model","value":5810},{"name":"generation","value":4299}]]},{"name":"price_currency","value":2},{"name":"body_type","value":[5]}],"sorting":1}' \
--H "Host: api.av.by" \
--H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:136.0) Gecko/20100101 Firefox/136.0" \
--H "Accept: */*" \
--H "Accept-Language: en-US,en;q=0.5" \
--H "Accept-Encoding: gzip, deflate, br, zstd" \
--H "Referer: https://cars.av.by/" \
--H "x-device-type: web.desktop" \
--H "Content-Type: application/json" \
--H "Origin: https://cars.av.by" \
--H "Connection: keep-alive" \
--H "Sec-Fetch-Dest: empty" \
--H "Sec-Fetch-Mode: cors" \
--H "Sec-Fetch-Site: same-site" \
--H "Priority: u=0" \
--H "TE: trailers" \
--X POST \
-'https://api.av.by/offer-types/cars/filters/main/apply' | \
-gunzip - | \
-jq --arg date $(date +"%Y-%m-%dT%H:%M:%S%z") --arg model "AUDI A4 B6" \
--c '.adverts[] | . + {downloadDate: $date, model: $model}' >> history
+audi_a4_b6_request='[
+  {
+    "name": "brands",
+    "property": 6,
+    "value": [
+      [
+        {
+          "name": "brand",
+          "value": 6
+        },
+        {
+          "name": "model",
+          "value": 5810
+        },
+        {
+          "name": "generation",
+          "value": 4299
+        }
+      ]
+    ]
+  },
+  {
+    "name": "price_currency",
+    "value": 2
+  },
+  {
+    "name": "body_type",
+    "value": [5]
+  }
+]'
+make_request 1 "AUDI A4 B6" "${audi_a4_b6_request}"
+make_request 2 "AUDI A4 B6" "${audi_a4_b6_request}"
+make_request 3 "AUDI A4 B6" "${audi_a4_b6_request}"
+make_request 4 "AUDI A4 B6" "${audi_a4_b6_request}"
+make_request 5 "AUDI A4 B6" "${audi_a4_b6_request}"
+make_request 6 "AUDI A4 B6" "${audi_a4_b6_request}"
 
-curl -d '{"page":2,"properties":[{"name":"brands","property":6,"value":[[{"name":"brand","value":6},{"name":"model","value":5810},{"name":"generation","value":4299}]]},{"name":"price_currency","value":2},{"name":"body_type","value":[5]}],"sorting":1}' \
--H "Host: api.av.by" \
--H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:136.0) Gecko/20100101 Firefox/136.0" \
--H "Accept: */*" \
--H "Accept-Language: en-US,en;q=0.5" \
--H "Accept-Encoding: gzip, deflate, br, zstd" \
--H "Referer: https://cars.av.by/" \
--H "x-device-type: web.desktop" \
--H "Content-Type: application/json" \
--H "Origin: https://cars.av.by" \
--H "Connection: keep-alive" \
--H "Sec-Fetch-Dest: empty" \
--H "Sec-Fetch-Mode: cors" \
--H "Sec-Fetch-Site: same-site" \
--H "Priority: u=0" \
--H "TE: trailers" \
--X POST \
-'https://api.av.by/offer-types/cars/filters/main/apply' | \
-gunzip - | \
-jq --arg date $(date +"%Y-%m-%dT%H:%M:%S%z") --arg model "AUDI A4 B6" \
--c '.adverts[] | . + {downloadDate: $date, model: $model}' >> history
 
-curl -d '{"page":3,"properties":[{"name":"brands","property":6,"value":[[{"name":"brand","value":6},{"name":"model","value":5810},{"name":"generation","value":4299}]]},{"name":"price_currency","value":2},{"name":"body_type","value":[5]}],"sorting":1}' \
--H "Host: api.av.by" \
--H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:136.0) Gecko/20100101 Firefox/136.0" \
--H "Accept: */*" \
--H "Accept-Language: en-US,en;q=0.5" \
--H "Accept-Encoding: gzip, deflate, br, zstd" \
--H "Referer: https://cars.av.by/" \
--H "x-device-type: web.desktop" \
--H "Content-Type: application/json" \
--H "Origin: https://cars.av.by" \
--H "Connection: keep-alive" \
--H "Sec-Fetch-Dest: empty" \
--H "Sec-Fetch-Mode: cors" \
--H "Sec-Fetch-Site: same-site" \
--H "Priority: u=0" \
--H "TE: trailers" \
--X POST \
-'https://api.av.by/offer-types/cars/filters/main/apply' | \
-gunzip - | \
-jq --arg date $(date +"%Y-%m-%dT%H:%M:%S%z") --arg model "AUDI A4 B6" \
--c '.adverts[] | . + {downloadDate: $date, model: $model}' >> history
-
-curl -d '{"page":4,"properties":[{"name":"brands","property":6,"value":[[{"name":"brand","value":6},{"name":"model","value":5810},{"name":"generation","value":4299}]]},{"name":"price_currency","value":2},{"name":"body_type","value":[5]}],"sorting":1}' \
--H "Host: api.av.by" \
--H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:136.0) Gecko/20100101 Firefox/136.0" \
--H "Accept: */*" \
--H "Accept-Language: en-US,en;q=0.5" \
--H "Accept-Encoding: gzip, deflate, br, zstd" \
--H "Referer: https://cars.av.by/" \
--H "x-device-type: web.desktop" \
--H "Content-Type: application/json" \
--H "Origin: https://cars.av.by" \
--H "Connection: keep-alive" \
--H "Sec-Fetch-Dest: empty" \
--H "Sec-Fetch-Mode: cors" \
--H "Sec-Fetch-Site: same-site" \
--H "Priority: u=0" \
--H "TE: trailers" \
--X POST \
-'https://api.av.by/offer-types/cars/filters/main/apply' | \
-gunzip - | \
-jq --arg date $(date +"%Y-%m-%dT%H:%M:%S%z") --arg model "AUDI A4 B6" \
--c '.adverts[] | . + {downloadDate: $date, model: $model}' >> history
-
-curl -d '{"page":5,"properties":[{"name":"brands","property":6,"value":[[{"name":"brand","value":6},{"name":"model","value":5810},{"name":"generation","value":4299}]]},{"name":"price_currency","value":2},{"name":"body_type","value":[5]}],"sorting":1}' \
--H "Host: api.av.by" \
--H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:136.0) Gecko/20100101 Firefox/136.0" \
--H "Accept: */*" \
--H "Accept-Language: en-US,en;q=0.5" \
--H "Accept-Encoding: gzip, deflate, br, zstd" \
--H "Referer: https://cars.av.by/" \
--H "x-device-type: web.desktop" \
--H "Content-Type: application/json" \
--H "Origin: https://cars.av.by" \
--H "Connection: keep-alive" \
--H "Sec-Fetch-Dest: empty" \
--H "Sec-Fetch-Mode: cors" \
--H "Sec-Fetch-Site: same-site" \
--H "Priority: u=0" \
--H "TE: trailers" \
--X POST \
-'https://api.av.by/offer-types/cars/filters/main/apply' | \
-gunzip - | \
-jq --arg date $(date +"%Y-%m-%dT%H:%M:%S%z") --arg model "AUDI A4 B6" \
--c '.adverts[] | . + {downloadDate: $date, model: $model}' >> history
-
-curl -d '{"page":6,"properties":[{"name":"brands","property":6,"value":[[{"name":"brand","value":6},{"name":"model","value":5810},{"name":"generation","value":4299}]]},{"name":"price_currency","value":2},{"name":"body_type","value":[5]}],"sorting":1}' \
--H "Host: api.av.by" \
--H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:136.0) Gecko/20100101 Firefox/136.0" \
--H "Accept: */*" \
--H "Accept-Language: en-US,en;q=0.5" \
--H "Accept-Encoding: gzip, deflate, br, zstd" \
--H "Referer: https://cars.av.by/" \
--H "x-device-type: web.desktop" \
--H "Content-Type: application/json" \
--H "Origin: https://cars.av.by" \
--H "Connection: keep-alive" \
--H "Sec-Fetch-Dest: empty" \
--H "Sec-Fetch-Mode: cors" \
--H "Sec-Fetch-Site: same-site" \
--H "Priority: u=0" \
--H "TE: trailers" \
--X POST \
-'https://api.av.by/offer-types/cars/filters/main/apply' | \
-gunzip - | \
-jq --arg date $(date +"%Y-%m-%dT%H:%M:%S%z") --arg model "AUDI A4 B6" \
--c '.adverts[] | . + {downloadDate: $date, model: $model}' >> history
+# Refresh view.csv
+./view.sh
