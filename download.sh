@@ -1,4 +1,18 @@
-echo '\n' >> history
+# temporary file to store results, for history update to be atomic
+tempFile=$(mktemp)
+
+# define an error handler function
+error_handler() {
+  echo "${RED}An error occurred. Exiting.${NC}"
+  rm -f "$tempFile"
+  exit 1
+}
+set -o pipefail # need to catch errors from piped commands
+trap error_handler ERR # call error_handler when an error occurs
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
 
 downloadDate=$(date +"%Y-%m-%dT%H:%M:%S%z")
 
@@ -27,7 +41,7 @@ make_request() {
   'https://api.av.by/offer-types/cars/filters/main/apply' | \
   gunzip - | \
   jq --arg date "$downloadDate" --arg model "${modelName}" \
-  -c '.adverts[] | . + {downloadDate: $date, model: $model}' >> history
+  -c '.adverts[] | . + {downloadDate: $date, model: $model}' >> "$tempFile"
 }
 
 # BMW F34
@@ -98,6 +112,13 @@ make_request 4 "AUDI A4 B6" "${audi_a4_b6_request}"
 make_request 5 "AUDI A4 B6" "${audi_a4_b6_request}"
 make_request 6 "AUDI A4 B6" "${audi_a4_b6_request}"
 
+# atomically append to history
+echo '\n' >> history
+cat "$tempFile" >> history
+rm "$tempFile"
 
-# Refresh view.csv
+# refresh view.csv
 ./view.sh
+
+echo "${GREEN}Successfully downloaded data for $downloadDate${NC}"
+echo "Note, view.csv was refreshed too"
