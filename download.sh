@@ -112,8 +112,8 @@ make_request 4 "AUDI A4 B6" "${audi_a4_b6_request}"
 make_request 5 "AUDI A4 B6" "${audi_a4_b6_request}"
 make_request 6 "AUDI A4 B6" "${audi_a4_b6_request}"
 
-# VOLVO XC60 II
-volvo_xc60_ii_request='[
+# VOLVO XC60 I
+volvo_xc60_i_request='[
   {
     "name": "brands",
     "property": 6,
@@ -159,8 +159,70 @@ volvo_xc60_ii_request='[
     ]
   }
 ]'
-make_request 1 "VOLVO XC60 II" "${volvo_xc60_ii_request}"
-make_request 2 "VOLVO XC60 II" "${volvo_xc60_ii_request}"
+make_request 1 "VOLVO XC60 I" "${volvo_xc60_i_request}"
+make_request 2 "VOLVO XC60 I" "${volvo_xc60_i_request}"
+
+# Ford S-MAX I
+ford_smax_i_request='[
+  {
+    "name": "brands",
+    "property": 6,
+    "value": [
+      [
+        {
+          "name": "brand",
+          "value": 330
+        },
+        {
+          "name": "model",
+          "value": 1949
+        },
+        {
+          "name": "generation",
+          "value": 755
+        }
+      ]
+    ]
+  },
+  {
+    "name": "price_currency",
+    "value": 2
+  }
+]'
+make_request 1 "Ford S-MAX I" "${ford_smax_i_request}"
+make_request 2 "Ford S-MAX I" "${ford_smax_i_request}"
+make_request 3 "Ford S-MAX I" "${ford_smax_i_request}"
+make_request 4 "Ford S-MAX I" "${ford_smax_i_request}"
+
+# Kia Carnival III
+kia_carnival_iii_request='[
+  {
+    "name": "brands",
+    "property": 6,
+    "value": [
+      [
+        {
+          "name": "brand",
+          "value": 545
+        },
+        {
+          "name": "model",
+          "value": 550
+        },
+        {
+          "name": "generation",
+          "value": 3805
+        }
+      ]
+    ]
+  },
+  {
+    "name": "price_currency",
+    "value": 2
+  }
+]'
+make_request 1 "Kia Carnival III" "${kia_carnival_iii_request}"
+make_request 2 "Kia Carnival III" "${kia_carnival_iii_request}"
 
 
 # atomically append to history
