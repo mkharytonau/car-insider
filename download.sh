@@ -112,6 +112,57 @@ make_request 4 "AUDI A4 B6" "${audi_a4_b6_request}"
 make_request 5 "AUDI A4 B6" "${audi_a4_b6_request}"
 make_request 6 "AUDI A4 B6" "${audi_a4_b6_request}"
 
+# VOLVO XC60 II
+volvo_xc60_ii_request='[
+  {
+    "name": "brands",
+    "property": 6,
+    "value": [
+      [
+        {
+          "name": "brand",
+          "value": 1238
+        },
+        {
+          "name": "model",
+          "value": 2098
+        },
+        {
+          "name": "generation",
+          "value": 2780
+        }
+      ]
+    ]
+  },
+  {
+    "name": "year",
+    "value": {
+      "max": null,
+      "min": 2014
+    }
+  },
+  {
+    "name": "price_currency",
+    "value": 2
+  },
+  {
+    "name": "engine_capacity",
+    "value": {
+      "max": 2400,
+      "min": 2400
+    }
+  },
+  {
+    "name": "engine_type",
+    "value": [
+      5
+    ]
+  }
+]'
+make_request 1 "VOLVO XC60 II" "${volvo_xc60_ii_request}"
+make_request 2 "VOLVO XC60 II" "${volvo_xc60_ii_request}"
+
+
 # atomically append to history
 echo '\n' >> history
 cat "$tempFile" >> history
