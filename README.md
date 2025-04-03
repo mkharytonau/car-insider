@@ -12,6 +12,11 @@ It extends each offer (`advert` in `av.by` api naming) with current datetime, so
 ## view.sh
 Extract metrics we are interested in from raw `history` data into `view.csv`. It can be pasted to Excel to draw plots.
 
+## generate html from insights.ipynb
+```bash
+jupyter nbconvert insights.ipynb --no-input --no-prompt --to html
+```
+
 ## insights.ipynb
 ### BMW F34
 ![BMW F34 Price History](img/bmw_f34_price.png)
