@@ -14,7 +14,7 @@ Extract metrics we are interested in from raw `history` data into `view.csv`. It
 
 ## generate html from insights.ipynb
 ```bash
-jupyter nbconvert insights.ipynb --no-input --no-prompt --to html
+jupyter nbconvert insights.ipynb --no-input --no-prompt --to html --output index
 ```
 
 ## insights.ipynb
