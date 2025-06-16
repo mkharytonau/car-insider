@@ -224,6 +224,115 @@ kia_carnival_iii_request='[
 make_request 1 "Kia Carnival III" "${kia_carnival_iii_request}"
 make_request 2 "Kia Carnival III" "${kia_carnival_iii_request}"
 
+# Subaru Impreza III
+subaru_impreza_iii_request='[
+	{
+		"name": "brands",
+		"property": 6,
+		"value": [
+			[
+				{
+					"name": "brand",
+					"value": 1136
+				},
+				{
+					"name": "model",
+					"value": 1143
+				},
+				{
+					"name": "generation",
+					"value": 2277
+				}
+			]
+		]
+	},
+	{
+		"name": "price_currency",
+		"value": 2
+	},
+	{
+		"name": "engine_capacity",
+		"value": {
+			"max": null,
+			"min": 2000
+		}
+	}
+]'
+make_request 1 "Subaru Impreza III" "${subaru_impreza_iii_request}"
+
+# Subaru Impreza III Автомат
+subaru_impreza_iii_auto_request='[
+  {
+    "name": "brands",
+    "property": 6,
+    "value": [
+      [
+        {
+          "name": "brand",
+          "value": 1136
+        },
+        {
+          "name": "model",
+          "value": 1143
+        },
+        {
+          "name": "generation",
+          "value": 2277
+        }
+      ]
+    ]
+  },
+  {
+    "name": "price_currency",
+    "value": 2
+  },
+  {
+    "name": "engine_capacity",
+    "value": {
+      "max": null,
+      "min": 2000
+    }
+  },
+  {
+    "name": "transmission_type",
+    "value": [
+      1,
+      3,
+      4
+    ]
+  }
+]'
+make_request 1 "Subaru Impreza III Автомат" "${subaru_impreza_iii_auto_request}"
+
+# BMW X1 E84
+bmw_x1_e84_request='[
+  {
+    "name": "brands",
+    "property": 6,
+    "value": [
+      [
+        {
+          "name": "brand",
+          "value": 8
+        },
+        {
+          "name": "model",
+          "value": 2207
+        },
+        {
+          "name": "generation",
+          "value": 126
+        }
+      ]
+    ]
+  },
+  {
+    "name": "price_currency",
+    "value": 2
+  }
+]'
+make_request 1 "BMW X1 E84" "${bmw_x1_e84_request}"
+make_request 2 "BMW X1 E84" "${bmw_x1_e84_request}"
 
 # atomically append to history
 echo '\n' >> history
