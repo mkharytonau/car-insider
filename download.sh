@@ -334,6 +334,49 @@ bmw_x1_e84_request='[
 make_request 1 "BMW X1 E84" "${bmw_x1_e84_request}"
 make_request 2 "BMW X1 E84" "${bmw_x1_e84_request}"
 
+# Volvo S40 II
+volvo_s40_ii_request='[
+  {
+    "name": "brands",
+    "property": 6,
+    "value": [
+      [
+        {
+          "name": "brand",
+          "value": 1238
+        },
+        {
+          "name": "model",
+          "value": 1255
+        },
+        {
+          "name": "generation",
+          "value": 2744
+        }
+      ]
+    ]
+  },
+  {
+    "name": "price_currency",
+    "value": 2
+  },
+  {
+    "name": "transmission_type",
+    "value": [
+      1,
+      3,
+      4
+    ]
+  },
+  {
+    "name": "engine_type",
+    "value": [
+      1
+    ]
+  }
+]'
+make_request 1 "Volvo S40 II" "${volvo_s40_ii_request}"
+
 # atomically append to history
 echo '\n' >> history
 cat "$tempFile" >> history
